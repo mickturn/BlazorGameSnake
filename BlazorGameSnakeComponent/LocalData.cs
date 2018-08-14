@@ -33,7 +33,6 @@ namespace BlazorGameSnakeComponent
         public static string context_Score;
 
 
-
         public static string global_Border_Color = "#999999";
         public static string global_BG_Color = "lightyellow";
 
