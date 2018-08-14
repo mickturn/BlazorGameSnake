@@ -1,0 +1,61 @@
+﻿@inherits CompBlazorGameSnake_Logic
+@implements IDisposable
+
+@using Classes
+
+<div id="canvas-container">
+
+    <br>
+
+
+    <svg width="1000" height="650" xmlns="http://www.w3.org/2000/svg">
+
+        <rect x="0" y="0" width="1000" height="650" style="fill:lightyellow;stroke:#999999;stroke-width:5">
+
+        </rect>
+
+        @if (Board.Walls_List.Count > 1)
+        {
+            <CompChildWalls></CompChildWalls>
+        }
+
+        <CompChildBoard></CompChildBoard>
+
+        <g>
+            <rect x="0" y="600" width="1000" height="50" style="fill:lightyellow;stroke:#999999;stroke-width:5">
+            </rect>
+            <text x=20 y="630" fill="green" font-family="Sylfaen" font-size="30">@CurrPoint</text>
+        </g>
+        
+    </svg>
+
+
+    
+
+
+    <br>
+    <br>
+   
+    <input type="checkbox" bind="@input_Is_Bot_Mode" />Bot Mode<br>
+    <input type="checkbox" bind="@input_Is_Enable_Audio" checked /> Audio Effects<br>
+
+
+    <button id="button_1" onclick="@button_1_onclick">reset</button>
+
+
+    <select bind="@select_Game_mode">
+        <option selected value="1">Open borders</option>
+        <option value="2">Close borders</option>
+    </select>
+
+    <label> Time interval: </label><input bind="@input_speed" type="number" min="5" max="1000" step="5" />
+
+    <label> count X: </label>
+    <input bind="@input_X_Count" type="number" min="5" max="100" step="1" />
+
+    <label> count y: </label>
+    <input bind="@input_Y_Count" type="number" min="5" max="100" step="1" />
+    <br>
+    <br>
+
+</div>
