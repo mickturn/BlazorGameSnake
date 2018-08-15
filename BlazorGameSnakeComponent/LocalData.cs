@@ -40,7 +40,7 @@ namespace BlazorGameSnakeComponent
         public static DirectionType Curr_Direction = DirectionType.empty;
 
         public static string timerVariable_Game_Time;
-        public static int global_speed = 500;
+        public static int global_speed = 200;
 
         public static int global_margin = 10;
 
