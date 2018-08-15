@@ -11,7 +11,8 @@ namespace BlazorGameSnakeComponent
     {
         public static CompBlazorGameSnake_Logic Curr_comp = null;
         public static CompChildBoard Curr_Comp_Board = null;
-        
+        public static CompChildWalls Curr_Comp_Walls = null;
+
         [JSInvokable]
         public static void KeyUpFromjs(int e)
         {
@@ -19,8 +20,8 @@ namespace BlazorGameSnakeComponent
 
         }
 
-        public static double CompWidth = 1000.0;
-        public static double CompHeight = 600.0;
+        public static double CompWidth = 800.0;
+        public static double CompHeight = 500.0;
 
 
         public static string canvas_Board;
@@ -39,10 +40,15 @@ namespace BlazorGameSnakeComponent
         public static DirectionType Curr_Direction = DirectionType.empty;
 
         public static string timerVariable_Game_Time;
-        public static int global_speed = 1;
+        public static int global_speed = 500;
 
         public static int global_margin = 10;
 
         public static string global_font = "30px Sylfaen";
+
+        public static int walls_count = 20;
+        public static int walls_min_length = 1;
+        public static int walls_max_length = 10;
+      
     }
 }

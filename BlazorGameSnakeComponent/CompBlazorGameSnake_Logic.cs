@@ -10,30 +10,197 @@ namespace BlazorGameSnakeComponent
 {
     public class CompBlazorGameSnake_Logic : BlazorComponent
     {
-        public bool input_Is_Bot_Mode;
 
-        public bool input_Is_Enable_Audio;
+        bool IsPageLoaded = false;
 
-        public int select_Game_mode;
+     
+        public bool input_Is_Bot_Mode
+        {
+            get
+            {
+                return Game.Is_Bot_Mode;
+            }
+            set
+            {
+                Game.Is_Bot_Mode = value;
+                run();
+            }
 
-        public int input_speed = 150;
+        }
 
-        public int input_X_Count = 44;
-        public int input_Y_Count = 22;
+
+
+        public bool input_Is_Enable_Audio
+        {
+
+            get
+            {
+                return Game.Is_Enabled_Audio;
+            }
+            set
+            {
+
+                Game.Is_Enabled_Audio = value;
+                run();
+
+            }
+
+        }
+
+
+
+
+      
+        public bool Are_Borders_Open
+        {
+
+            get
+            {
+                return Game.Are_Borders_Open;
+            }
+
+
+            set
+            {
+               
+                Game.Are_Borders_Open = value;
+                run();
+
+            }
+
+        }
+
+
+        public int input_speed
+        {
+
+            get
+            {
+                return LocalData.global_speed;
+            }
+
+
+            set
+            {
+
+                LocalData.global_speed = value;
+                run();
+
+            }
+
+        }
+
+
+        public int input_X_Count
+        {
+
+            get
+            {
+                return Game.x_Length;
+            }
+
+
+            set
+            {
+
+                Game.x_Length = value;
+                Game.y_Length = input_Y_Count;
+                Game.points_Count = Game.x_Length * Game.y_Length;
+                Game.point_Width = Math.Round(LocalData.CompWidth * 1.0 / Game.x_Length, 2);
+                Game.point_Height = Math.Round(LocalData.CompHeight * 1.0 / Game.y_Length, 2);
+
+                run();
+
+            }
+
+        }
+
+      
+
+        public int input_Y_Count
+        {
+
+            get
+            {
+                return Game.y_Length;
+            }
+
+
+            set
+            {
+                Game.y_Length = value;
+                Game.points_Count = Game.x_Length * Game.y_Length;
+                Game.point_Width = Math.Round(LocalData.CompWidth * 1.0 / Game.x_Length, 2);
+                Game.point_Height = Math.Round(LocalData.CompHeight * 1.0 / Game.y_Length, 2);
+
+                run();
+
+            }
+
+        }
+
+
+
+        public int walls_count
+        {
+            get
+            {
+                return LocalData.walls_count;
+            }
+            set
+            {
+                LocalData.walls_count = value;
+                run();
+            }
+        }
+
+        public int walls_min_length
+        {
+            get
+            {
+                return LocalData.walls_min_length;
+            }
+            set
+            {
+                LocalData.walls_min_length = value;
+                run();
+            }
+        }
+
+        public int walls_max_length
+        {
+            get
+            {
+                return LocalData.walls_max_length;
+            }
+            set
+            {
+                LocalData.walls_max_length = value;
+                run();
+            }
+        }
 
 
         public string CurrPoint = "Point 0";
 
         protected override void OnInit()
         {
-            Game.x_Length = input_X_Count;
-            Game.y_Length = input_Y_Count;
-
-            reset_Settings();
+            Game.points_Count = Game.x_Length * Game.y_Length;
+            Game.point_Width = Math.Round(LocalData.CompWidth * 1.0 / Game.x_Length, 2);
+            Game.point_Height = Math.Round(LocalData.CompHeight * 1.0 / Game.y_Length, 2);
             Game.reset();
+        }
 
-            paint_AppName();
+        public void run()
+        {
 
+            if (IsPageLoaded)
+            {
+                Game.reset();
+                StateHasChanged();
+                LocalData.Curr_Comp_Board.Refresh();
+                LocalData.Curr_Comp_Walls.Refresh();
+            }
         }
 
 
@@ -44,6 +211,9 @@ namespace BlazorGameSnakeComponent
 
 
             base.OnAfterRender();
+
+
+            IsPageLoaded = true;
         }
 
 
@@ -52,52 +222,16 @@ namespace BlazorGameSnakeComponent
             StateHasChanged();
         }
 
-        public void button_1_onclick()
-        {
-            reset_Settings();
-            Game.reset();
-        }
-
-        public void input_Is_Enable_Audio_onchange()
-        {
-
-            //let tmp_element = document.getElementById("input_Is_Enable_Audio") as HTMLInputElement;
-            //Game.Is_Enabled_Audio = tmp_element.checked;
-
-            //if (!Game.Is_Enabled_Audio)
-            //{
-            //    SoundEffect.bg_sound.pause();
-            //}
-        }
-
-
-        public void input_Is_Bot_Mode_onchange()
-        {
-
-            //let tmp_element = document.getElementById("input_Is_Bot_Mode") as HTMLInputElement;
-            //Game.Is_Bot_Mode = tmp_element.checked;
-        }
-
-        public void input_speed_onchange()
-        {
-
-            //let tmp_element = document.getElementById("input_speed") as HTMLInputElement;
-            //global_speed = parseInt(tmp_element.value);
-        }
 
         public void input_X_Count_onchange()
         {
+            run();
 
-            //let tmp_element = document.getElementById("input_X_Count") as HTMLInputElement;
-            //Game.x_Length = parseInt(tmp_element.value);
         }
 
         public void input_Y_Count_onchange()
         {
-
-            //let tmp_element = document.getElementById("input_Y_Count") as HTMLInputElement;
-            //Game.y_Length = parseInt(tmp_element.value);
-
+            run();
         }
 
 
@@ -159,84 +293,10 @@ namespace BlazorGameSnakeComponent
                             break;
                     }
 
-                    
-
                 }
             }
 
-
-           
         }
-
-  
-
-
-
-        public void paint_AppName() {
-
-            //context_AppName.font = "40px Sylfaen";
-            //context_AppName.fillStyle = "green";
-            //let Tmp_Active_Width: number = Math.ceil(context_AppName.measureText("Snake").width);
-
-
-            //context_AppName.fillText("Snake", (canvas_AppName.width - Tmp_Active_Width) / 2, 32);
-
-
-        }
-
-        
-
-      
-
-        public void reset_Settings()
-        {
-
-
-
-            Game_mode_onchange();
-            input_Is_Enable_Audio_onchange();
-            input_Is_Bot_Mode_onchange();
-            input_speed_onchange();
-            input_X_Count_onchange();
-            input_Y_Count_onchange();
-
-            Game.points_Count = Game.x_Length * Game.y_Length;
-            Game.point_Width =Math.Round(LocalData.CompWidth * 1.0 / Game.x_Length,2);
-            Game.point_Height = Math.Round(LocalData.CompHeight * 1.0 / Game.y_Length,2);
-
-           
-
-        }
-
-
-
-
-
-
-
-        
-
-
-        public void Game_mode_onchange()
-        {
-
-            //let my_select = document.getElementById("select_Game_mode") as HTMLSelectElement;
-            //let curr_value: string = my_select.value.toString().trim();
-
-            //switch (curr_value)
-            //{
-            //    case "1":
-            //        Game.Are_Borders_Open = true;
-            //        break;
-            //    case "2":
-            //        Game.Are_Borders_Open = false;
-            //        break;
-            //}
-
-        }
-
-
-
 
 
         public void Dispose()

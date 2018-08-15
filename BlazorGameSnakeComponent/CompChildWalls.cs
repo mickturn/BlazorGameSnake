@@ -13,7 +13,13 @@ namespace BlazorGameSnakeComponent
 
         List<rect> rects_list = new List<rect>();
 
-
+        protected override void OnAfterRender()
+        {
+            if (LocalData.Curr_Comp_Walls is null)
+            {
+                LocalData.Curr_Comp_Walls = this;
+            }
+        }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
@@ -29,6 +35,10 @@ namespace BlazorGameSnakeComponent
 
         }
 
+        public void Refresh()
+        {
+            StateHasChanged();
+        }
 
         public void paint_walls()
         {

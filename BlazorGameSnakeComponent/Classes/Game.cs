@@ -15,12 +15,12 @@ namespace BlazorGameSnakeComponent.Classes
         public static Timer timer;
 
 
-        public static bool Is_Bot_Mode=true;
+        public static bool Is_Bot_Mode=false;
         public static bool Is_Found_Right_Path;
         public static List<MyPoint> Right_Path;
         public static int Recursion_Counter;
-        public static int x_Length;
-        public static int y_Length;
+        public static int x_Length = 44;
+        public static int y_Length = 24;
         public static int points_Count;
         public static double point_Width;
         public static double point_Height;
@@ -359,7 +359,7 @@ namespace BlazorGameSnakeComponent.Classes
 
             Board.initialize_Matrix();
 
-            Board.generate_walls(20, 2, 10);
+            Board.generate_walls();
 
             paint_Random_Target();
 

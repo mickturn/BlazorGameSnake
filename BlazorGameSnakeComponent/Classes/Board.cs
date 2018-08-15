@@ -34,15 +34,15 @@ namespace BlazorGameSnakeComponent.Classes
         }
 
 
-        public static void generate_walls(int walls_count, int min_length, int max_length)
+        public static void generate_walls()
         {
             Walls_List = new List<wall>();
 
-            for (var i = 0; i < walls_count; i++)
+            for (var i = 0; i < LocalData.walls_count; i++)
             {
                 wall new_wall = new wall();
                 new_wall.startpoint = new MyPoint(0, 0);
-                new_wall.lenght = MyFunctions.get_Random_Int(min_length, max_length);
+                new_wall.lenght = MyFunctions.get_Random_Int(LocalData.walls_min_length, LocalData.walls_max_length);
                 new_wall.direction = (DirectionType)MyFunctions.get_Random_Int(0, 3);
 
 
