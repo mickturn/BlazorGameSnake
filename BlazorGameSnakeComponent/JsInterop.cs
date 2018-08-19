@@ -1,30 +1,30 @@
 ﻿using Microsoft.JSInterop;
 using System;
-
+using System.Threading.Tasks;
 
 namespace BlazorGameSnakeComponent
 {
     public class JsInterop
     {
-        public static bool Alert(string a)
+        public static Task<bool> Alert(string a)
         {
-            return (JSRuntime.Current as IJSInProcessRuntime).Invoke<bool>(
+            return JSRuntime.Current.InvokeAsync<bool>(
                 "JsInteropSnake.Alert", a);
         }
 
 
-        public static bool InitializeSound(int id, string path, bool loop)
+        public static Task<bool> InitializeSound(int id, string path, bool loop)
         {
 
-            return (JSRuntime.Current as IJSInProcessRuntime).Invoke<bool>(
+            return JSRuntime.Current.InvokeAsync<bool>(
                 "JsInteropSnake.InitializeSound", new {id, path, loop });
         }
 
 
-        public static bool ManageSound(int id, string command)
+        public static Task<bool> ManageSound(int id, string command)
         {
             id = id - 1;
-            return (JSRuntime.Current as IJSInProcessRuntime).Invoke<bool>(
+            return JSRuntime.Current.InvokeAsync<bool>(
                 "JsInteropSnake.ManageSound", new { id, command});
         }
 
