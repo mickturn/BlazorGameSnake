@@ -1,9 +1,9 @@
 ﻿var audio_array = [];
 
-document.onkeyup = function (evt) {
-    evt = evt || window.event;
-    DotNet.invokeMethodAsync('BlazorGameSnakeComponent', 'KeyUpFromjs', evt.keyCode);
-};
+//document.onkeyup = function (evt) {
+//    evt = evt || window.event;
+//    DotNet.invokeMethodAsync('BlazorGameSnakeComponent', 'KeyUpFromjs', evt.keyCode);
+//};
 
 window.JsInteropSnake = {
     Alert: function (a) {
